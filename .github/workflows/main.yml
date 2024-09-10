@@ -4,6 +4,8 @@ on:
   schedule:
     # Run every 10 minutes so that Render free deployment doesn't get idle
     - cron: "*/10 * * * *"
+    
+  workflow_dispatch:
 
 jobs:
   ping-website:
