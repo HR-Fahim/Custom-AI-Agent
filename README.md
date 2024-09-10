@@ -4,9 +4,9 @@ This project demonstrates a custom AI agent that responds to user inputs based o
 
 #### Visit Custom AI Page: [Click Here](https://custom-ai-agent.onrender.com)
 
-![screenshot](image.png)
-
 _<sub>**Note:** As here used Render for free deployment, it may get idle after few moments. Implemented here continuous intergration to on Git actions to keep the Render service alive. If it still shows inactive please let me know.</sub>_
+
+![screenshot](image.png)
 
 ## Key Features
 
