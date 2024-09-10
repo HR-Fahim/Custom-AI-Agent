@@ -81,7 +81,8 @@ def submit():
         ):
             kind = event["event"]
 
-            print(kind) # debug
+            # @TODO: Event debug for future use
+            # print(kind) 
             
             # Each node traversal
             if kind == "on_chain_start" and event["name"] == "Agent":
