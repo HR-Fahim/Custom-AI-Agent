@@ -60,7 +60,7 @@ def submit():
 
     prompt = template.format(user_input=body_text.get('user_input'))
 
-    # Syncronus streaming check for debugging
+    ## Syncronus streaming check for debugging
     # for chunk in agent_executor.stream(
     #     {"messages": [HumanMessage(content=body_text.get('user_input'))]}, config
     # ):
