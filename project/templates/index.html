@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent</title>
+</head>
+
+<body>
+    <h1>Custom AI Agent</h1>
+    <form id="party-form">
+        <label for="user_input">Put Text Here:</label><br><br>
+        <textarea id="user_input" name="user_input" rows="4" cols="50"></textarea><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <h2>Assistant's Response:</h2>
+    <div id="response"></div>
+
+    <script>
+        const form = document.getElementById('party-form');
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const userInput = document.getElementById('user_input').value;
+
+            fetch('/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'thread-id': document.cookie = "sessionId="
+                },
+                body: JSON.stringify({ user_input: userInput })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('response').innerHTML = `<p>${data.response}</p>`;
+                });
+        });
+    </script>
+</body>
+
+</html>

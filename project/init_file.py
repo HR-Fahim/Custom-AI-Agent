@@ -1,31 +1,55 @@
-# Necessary imports
+# Imports
 import os
 import openai
+from dotenv import load_dotenv
+from langchain_openai import ChatOpenAI
+from langgraph.prebuilt import create_react_agent
+from langgraph.checkpoint.memory import MemorySaver
+from langchain_core.messages import HumanMessage
+from langchain_community.tools.tavily_search import TavilySearchResults
+from flask import Flask, render_template, request, jsonify
 
-from langchain import OpenAI, ConversationChain
-from langchain.prompts import ChatPromptTemplate
-from langchain.memory import ConversationBufferMemory
+# Loaded .env
+load_dotenv() 
 
 # Initization of .env file
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# Memory to save data
-memory = ConversationBufferMemory()
+# Model initialization
+model = ChatOpenAI(model="gpt-3.5-turbo")
 
-# Prompt template
-prompt_template = """
-You are a smart AI assistant to help the user to plan a birthday party.
-Users may provide deatils about the party such as location, number of guests, food preference, and more.
-You should recommand suggestions to book the best veneues, caterers, and entertainment options for the party, explaining its choices along the way.
-You should remember the user's previous requests and adjust the party plan if the user changes their mind or adds new requirements.
-User: {user_input}
-Assistant:
-"""
-template = ChatPromptTemplate.from_template(template=prompt_template)
+# Search tool initialization
+search = TavilySearchResults(max_results=2, api_key=os.getenv("TAVILY_API_KEY"))
 
-# Initialization model with memory
-model = OpenAI(model_name="gpt-3.5-turbo", temperature=0.5)
+# Flask initialization
+app = Flask(__name__)
 
-conversation = ConversationChain(
-    llm=model, memory=memory, prompt_template=template
-)
+# Flask routes
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/submit', methods=['POST'])
+def submit():
+    tools = [search]
+
+    memory = MemorySaver()
+
+    agent_executor = create_react_agent(model, tools, checkpointer=memory)
+
+    user_input = request.get_json()
+
+    print(user_input) # debug
+
+    # response = query_ai_agent(user_input)
+
+    config = {"configurable": {"thread_id": "abc123"}} # Will modify to track user session
+
+    for chunk in agent_executor.stream(
+        {"messages": [HumanMessage(content=user_input)]}, config
+    ):
+        print(chunk)
+        return jsonify({"response": chunk})
+
+if __name__ == '__main__':
+    app.run(debug=True)
