@@ -43,13 +43,15 @@ def submit():
 
     # response = query_ai_agent(user_input)
 
-    config = {"configurable": {"thread_id": "abc123"}} # Will modify to track user session
+    config = {"configurable": {"thread_id": body_text.get('thread_id')}} # threadID to track user
 
-    for chunk in agent_executor.stream(
-        {"messages": [HumanMessage(content=body_text)]}, config
-    ):
-        print(chunk)
-        return jsonify({"response": chunk})
+    # @TODO: Syncronus streaming check
+    # for chunk in agent_executor.stream(
+    #     {"messages": [HumanMessage(content=body_text.get('user_input'))]}, config
+    # ):
+    #     print(str(chunk)) # debug
+
+    #     return jsonify({"response": str(chunk)})
 
 if __name__ == '__main__':
     app.run(debug=True)
