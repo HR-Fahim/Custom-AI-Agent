@@ -1,0 +1,15 @@
+name: Track Deployment Page
+
+on:
+  schedule:
+    # Run every 10 minutes so that Render free deployment doesn't get idle
+    - cron: "*/10 * * * *"
+
+jobs:
+  ping-website:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send requests
+        run: |
+          curl -s -o /dev/null -w "%{http_code}" https://custom-ai-agent.onrender.com
