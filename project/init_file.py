@@ -16,7 +16,7 @@ load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Model initialization
-model = ChatOpenAI(model="gpt-3.5-turbo")
+model = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5)
 
 # Search tool initialization
 search = TavilySearchResults(max_results=2, api_key=os.getenv("TAVILY_API_KEY"))
@@ -24,7 +24,6 @@ search = TavilySearchResults(max_results=2, api_key=os.getenv("TAVILY_API_KEY"))
 # Flask initialization
 app = Flask(__name__)
 
-# Flask routes
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -37,16 +36,17 @@ def submit():
 
     agent_executor = create_react_agent(model, tools, checkpointer=memory)
 
-    user_input = request.get_json()
+    body_text = request.get_json()
 
-    print(user_input) # debug
+    print(body_text.get('thread_id')) # debug
+    print(body_text.get('user_input')) # debug
 
     # response = query_ai_agent(user_input)
 
     config = {"configurable": {"thread_id": "abc123"}} # Will modify to track user session
 
     for chunk in agent_executor.stream(
-        {"messages": [HumanMessage(content=user_input)]}, config
+        {"messages": [HumanMessage(content=body_text)]}, config
     ):
         print(chunk)
         return jsonify({"response": chunk})

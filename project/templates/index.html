@@ -18,6 +18,10 @@
     <div id="response"></div>
 
     <script>
+        const threadID = Math.random().toString(36).substring(2, 12);
+
+        // console.log("Random String:", randomString); // Debug purpose
+
         const form = document.getElementById('party-form');
 
         form.addEventListener('submit', function (event) {
@@ -29,7 +33,10 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ user_input: userInput })
+                body: JSON.stringify({
+                    thread_id: threadID,
+                    user_input: userInput
+                })
             })
                 .then(response => response.json())
                 .then(data => {
