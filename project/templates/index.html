@@ -14,7 +14,7 @@
         <textarea id="user_input" name="user_input" rows="4" cols="50"></textarea><br><br>
         <input type="submit" value="Submit">
     </form>
-    <h2>Assistant's Response:</h2>
+    <h2>Response Text:</h2>
     <div id="response"></div>
 
     <script>
@@ -27,8 +27,7 @@
             fetch('/submit', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'thread-id': document.cookie = "sessionId="
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ user_input: userInput })
             })
