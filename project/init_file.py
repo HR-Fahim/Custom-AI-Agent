@@ -31,12 +31,12 @@ agent_executor = create_react_agent(model, tools, checkpointer=memory)
 # Template for the system prompt
 template = PromptTemplate(
     template="""
-    You are a smart AI assistant to help user to plan a birthday party.
-    Users may provide details about the party they want to throw.
-    Users may provide information about the party such as location, number of guests, food preference, and more.
-    You should recommend suggestions to book the best venues, caterers, and entertainment options for the party, explaining your choices along the way.
-    You should remember the user's previous requests and adjust the party plan if the user changes their mind or adds new requirements.
-    You should also ask questions wheather the user wants to know more.
+    You are a smart AI assistant to help user according to their preferences.
+    Users may ask questions based on a specific topic that they want to know in detail.
+    Users may provide information about the topic such as location, budget, food preference, and more.
+    You should recommend best suggestions based on the user's preferences, explaining its choices along the way.
+    You should remember the user's previous requests and adjust the information if the user changes decisions or adds new requirements.
+    You should also ask questions wheather the user wants to know anything more.
     User: {user_input}
     Assistant:
     """
