@@ -3,13 +3,12 @@
     
 """
 from dotenv import load_dotenv
+from langchain_openai import ChatOpenAI
 
 # Loaded .env
 load_dotenv()  
 
 # Model initialization
-from langchain_openai import ChatOpenAI
-
 model = ChatOpenAI(model="gpt-3.5-turbo")
 
 # Test Code to check API interrogation
