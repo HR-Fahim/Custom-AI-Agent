@@ -10,13 +10,13 @@ _<sub>**Note:** As here used Render for free deployment service, it may get idle
 
 ## Key Features
 
-**Thread ID Management:** To keep track of the context of the conversation, a unique thread ID is generated for every session. As a result, the AI agent is able to retain user preferences throughout the session.
+- **Thread ID Management:** To keep track of the context of the conversation, a unique thread ID is generated for every session. As a result, the AI agent is able to retain user preferences throughout the session.
 
-**Asynchronous Processing:** The AI assistant is effective for lengthy or complicated queries because it handles streaming responses using asynchronous techniques.
+- **Asynchronous Processing:** The AI assistant is effective for lengthy or complicated queries because it handles streaming responses using asynchronous techniques.
 
-**Tavily Search API:** To improve the assistant's functionality, this project incorporates a search tool (TavilySearchResults).
+- **Tavily Search API:** To improve the assistant's functionality, this project incorporates a search tool (TavilySearchResults).
 
-**Render Deployment:** The repository was deployed into Render Web Services.
+- **Render Deployment:** The repository was deployed into Render Web Services.
 
 ## Requirements
 
