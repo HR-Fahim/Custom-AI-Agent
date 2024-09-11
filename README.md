@@ -30,6 +30,25 @@ Here `requirement.txt` was included into project folder, also following dependen
 - asyncio
 - TavilySearch API
 
+## Project Setup
+
+- The project uses .env to store API keys securely.
+
+```
+OPENAI_API_KEY = "API"
+TAVILY_API_KEY = "API"
+```
+
+- Use `requirements.txt` to install required dependencies.
+
+- Run `app.py` using Flask Server.
+
+```
+python app.py
+```
+
+- The server will start at `http://127.0.0.1`
+
 ## Functionality
 
 - Here Flask server (`http://127.0.0.1`) manages the POST requests for interaction with the AI agent and it was tested on the local server.
