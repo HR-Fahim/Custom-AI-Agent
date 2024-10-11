@@ -1,14 +1,33 @@
+# name: Track Deployment Page
+
+# on:
+#   schedule:
+#     # Run every 10 minutes so that Render free deployment doesn't get idle
+#     - cron: "*/10 * * * *"
+
+#   workflow_dispatch:
+
+# jobs:
+#   ping-website:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Send requests
+#         run: |
+#           curl -s -o /dev/null -w "%{http_code}" https://custom-ai-agent.onrender.com
+
 name: Track Deployment Page
 
 on:
-  schedule:
-    # Run every 10 minutes so that Render free deployment doesn't get idle
-    - cron: "*/10 * * * *"
-    
   workflow_dispatch:
+    inputs:
+      stop:
+        description: "Stop this workflow"
+        default: ""
 
 jobs:
   ping-website:
+    if: ${{ github.event.inputs.stop == 'stop this workflow' }}
     runs-on: ubuntu-latest
 
     steps:
